@@ -10,9 +10,9 @@
   <!-- What to run -->
   <key>ProgramArguments</key>
   <array>
-    <string>/Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit/.venv/bin/python</string>
+    <string>/Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit/.venv/bin/python</string>
     <string>-u</string>
-    <string>/Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit/app.py</string>
+    <string>/Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit/app.py</string>
     <string>serve</string>
     <string>dingtalk</string>
   </array>
@@ -37,12 +37,12 @@
 
   <!-- Logs (the logs/ dir must exist before launchctl load). -->
   <key>StandardOutPath</key>
-  <string>/Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit/logs/dingtalk_bot.out.log</string>
+  <string>/Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit/logs/dingtalk_bot.out.log</string>
   <key>StandardErrorPath</key>
-  <string>/Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit/logs/dingtalk_bot.err.log</string>
+  <string>/Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit/logs/dingtalk_bot.err.log</string>
 
   <!-- CWD so app.py finds ./data/, ./data/kb.sqlite, ./.env, etc. -->
   <key>WorkingDirectory</key>
-  <string>/Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit</string>
+  <string>/Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit</string>
 </dict>
 </plist>

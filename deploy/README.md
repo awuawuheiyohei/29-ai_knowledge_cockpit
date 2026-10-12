@@ -8,10 +8,10 @@ fully detached from any terminal.
 
 ```bash
 # 1. Make sure logs/ exists at the repo root (the plist logs there)
-mkdir -p /Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit/logs
+mkdir -p /Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit/logs
 
 # 2. Copy the plist into your per-user LaunchAgents
-cp /Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit/deploy/com.mavis.knowledge-bot.plist \
+cp /Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit/deploy/com.mavis.knowledge-bot.plist \
    ~/Library/LaunchAgents/
 
 # 3. Load it. This starts the bot RIGHT NOW and also on every
@@ -27,8 +27,8 @@ launchctl list | grep knowledge
 # 期望: <pid>   0   com.mavis.knowledge-bot
 
 # Live logs
-tail -f /Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit/logs/dingtalk_bot.out.log
-tail -f /Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit/logs/dingtalk_bot.err.log
+tail -f /Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit/logs/dingtalk_bot.out.log
+tail -f /Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit/logs/dingtalk_bot.err.log
 
 # Stop the service (clean stop, no auto-restart on next load)
 launchctl unload ~/Library/LaunchAgents/com.mavis.knowledge-bot.plist
@@ -65,7 +65,7 @@ If you ever need to change the command (e.g. switch to `feishu`):
 
 ```bash
 # 1. Edit the file in this repo
-vim /Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit/deploy/com.mavis.knowledge-bot.plist
+vim /Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit/deploy/com.mavis.knowledge-bot.plist
 
 # 2. Copy + restart
 cp <edited>  ~/Library/LaunchAgents/com.mavis.knowledge-bot.plist

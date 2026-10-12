@@ -8,9 +8,9 @@
 
   <key>ProgramArguments</key>
   <array>
-    <string>/Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit/.venv/bin/python</string>
+    <string>/Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit/.venv/bin/python</string>
     <string>-u</string>
-    <string>/Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit/exam/app.py</string>
+    <string>/Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit/exam/app.py</string>
   </array>
 
   <key>RunAtLoad</key>
@@ -28,11 +28,11 @@
   <string>Background</string>
 
   <key>StandardOutPath</key>
-  <string>/Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit/logs/exam_app.out.log</string>
+  <string>/Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit/logs/exam_app.out.log</string>
   <key>StandardErrorPath</key>
-  <string>/Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit/logs/exam_app.err.log</string>
+  <string>/Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit/logs/exam_app.err.log</string>
 
   <key>WorkingDirectory</key>
-  <string>/Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit</string>
+  <string>/Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit</string>
 </dict>
 </plist>

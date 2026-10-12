@@ -13,8 +13,8 @@
 
 set -u
 PLIST_ID="com.mavis.knowledge-bot"
-LOG_OUT="$HOME/Downloads/mass/ai_knowledge_cockpit/logs/dingtalk_bot.out.log"
-LOG_ERR="$HOME/Downloads/mass/ai_knowledge_cockpit/logs/dingtalk_bot.err.log"
+LOG_OUT="$HOME/Downloads/mass/29-ai_knowledge_cockpit/logs/dingtalk_bot.out.log"
+LOG_ERR="$HOME/Downloads/mass/29-ai_knowledge_cockpit/logs/dingtalk_bot.err.log"
 LOG="$LOG_OUT"  # primary mtime source
 HEARTBEAT="/tmp/dingtalk_bot.alive"  # touched every 20s by a daemon thread
 STATE="/tmp/bot_watchdog.state"

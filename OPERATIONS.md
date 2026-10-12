@@ -23,7 +23,7 @@
 
 ```bash
 # 1. 进入项目
-cd /Users/jiangwenrui/Downloads/mass/ai_knowledge_cockpit
+cd /Users/jiangwenrui/Downloads/mass/29-ai_knowledge_cockpit
 
 # 2. 装依赖
 make install
