@@ -75,7 +75,10 @@ cmd_verify() {
   rm -rf "$DECRYPT_DIR"; mkdir -p "$DECRYPT_DIR"
   # Compare against the COMMITTED blob, not the working file, so this
   # proves what is actually in git history is recoverable.
-  git -C "$REPO_ROOT" show "HEAD:$ARCHIVE" > "$DECRYPT_DIR/.blob.age"
+  # NOTE: git rev-parse paths are repo-root-relative, so pass the path
+  # relative to REPO_ROOT — an absolute path silently fails to resolve.
+  rel="${ARCHIVE#"$REPO_ROOT/"}"
+  git -C "$REPO_ROOT" show "HEAD:$rel" > "$DECRYPT_DIR/.blob.age"
   age -d -i "$KEY_FILE" "$DECRYPT_DIR/.blob.age" | tar -xf - -C "$DECRYPT_DIR"
   a=$(cd "$SRC_DIR" && find . -type f -exec shasum -a 256 {} + | sort -k2 | shasum -a 256 | cut -d' ' -f1)
   b=$(cd "$DECRYPT_DIR/questions" && find . -type f -exec shasum -a 256 {} + | sort -k2 | shasum -a 256 | cut -d' ' -f1)
