@@ -31,6 +31,15 @@ data/reextracted/
 exam/exam.sqlite
 exam/exam.sqlite-*
 
+# ITILv5 webapp: runtime state (rebuilt from questions.json by init_db)
+ITILv5/exam.sqlite
+ITILv5/exam.sqlite-*
+
+# ITILv5 official textbooks / sample papers — copyrighted, large binaries, never push
+ITILv5/*.pdf
+ITILv5/*.docx
+ITILv5/ITIL_FND_*/
+
 # --- IDE ---
 .idea/
 .vscode/

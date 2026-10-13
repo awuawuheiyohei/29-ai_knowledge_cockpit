@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ITIL 5 Foundation 刷题</title>
+<style>
+  /* ---------- Color tokens (light default) ---------- */
+  :root {
+    --bg: #f5f6f8;
+    --bg-elevated: #ffffff;
+    --card: #ffffff;
+    --card-2: #fafbfc;
+    --border: #e3e6eb;
+    --border-strong: #cbd1d9;
+    --ink: #1a1d23;
+    --ink-2: #374151;
+    --muted: #6b7280;
+    --muted-2: #9ca3af;
+    --accent: #2563eb;
+    --accent-2: #1d4ed8;
+    --accent-soft: #eff6ff;
+    --good: #15803d;
+    --good-soft: #dcfce7;
+    --bad: #b91c1c;
+    --bad-soft: #fee2e2;
+    --warn: #b45309;
+    --warn-soft: #fef3c7;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  /* ---------- Dark mode ---------- */
+  [data-theme="dark"] {
+    --bg: #0f1115;
+    --bg-elevated: #181b22;
+    --card: #1a1d24;
+    --card-2: #21252e;
+    --border: #2a2e38;
+    --border-strong: #3a3f4a;
+    --ink: #e4e6eb;
+    --ink-2: #cbd1d9;
+    --muted: #8b8f99;
+    --muted-2: #5b6170;
+    --accent: #3b82f6;
+    --accent-2: #60a5fa;
+    --accent-soft: #1e3a8a33;
+    --good: #10b981;
+    --good-soft: #064e3b;
+    --bad: #ef4444;
+    --bad-soft: #7f1d1d;
+    --warn: #f59e0b;
+    --warn-soft: #78350f;
+    --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.4), 0 4px 10px rgba(0,0,0,0.3);
+  }
+
+  /* ---------- Reset & layout ---------- */
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.5;
+    transition: background 0.2s, color 0.2s;
+  }
+  .app {
+    min-height: 100%;
+    display: flex; flex-direction: column;
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 16px;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 600; font-size: 16px;
+  }
+  .brand-icon {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    border-radius: 8px;
+    display: grid; place-items: center;
+    color: white; font-size: 16px;
+  }
+  .topbar-actions {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .stats-chip {
+    background: var(--card-2);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .stats-chip strong { color: var(--ink); }
+  .stats-chip .sep { color: var(--muted-2); margin: 0 6px; }
+  .icon-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 36px; height: 36px;
+    display: grid; place-items: center;
+    cursor: pointer; font-size: 16px;
+    color: var(--ink-2);
+    transition: background 0.1s, border-color 0.1s;
+  }
+  .icon-btn:hover { background: var(--card-2); border-color: var(--border-strong); }
+
+  /* ---------- Main ---------- */
+  main {
+    flex: 1;
+    max-width: 760px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  /* ---------- Question header ---------- */
+  .q-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px;
+  }
+  .q-counter {
+    font-size: 13px; color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .q-counter strong {
+    color: var(--ink);
+    font-size: 16px;
+    margin-right: 4px;
+  }
+  .topic-pill {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .topic-pill:empty { display: none; }
+
+  /* ---------- Card ---------- */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+  }
+  .stem {
+    font-size: 17px;
+    line-height: 1.7;
+    margin: 0 0 24px;
+    color: var(--ink);
+    white-space: pre-wrap;
+  }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .opt {
+    display: flex; align-items: flex-start;
+    width: 100%;
+    text-align: left;
+    padding: 14px 18px;
+    background: var(--card-2);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    transition: all 0.1s;
+  }
+  .opt:hover:not(:disabled) {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .opt:disabled { cursor: default; }
+  .opt.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--ink);
+  }
+  .opt.correct {
+    border-color: var(--good);
+    background: var(--good-soft);
+    color: var(--ink);
+  }
+  .opt.wrong {
+    border-color: var(--bad);
+    background: var(--bad-soft);
+    color: var(--ink);
+  }
+  .opt .letter {
+    flex-shrink: 0;
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    background: var(--border);
+    color: var(--ink);
+    display: grid; place-items: center;
+    font-weight: 600;
+    font-size: 13px;
+    margin-right: 12px;
+    margin-top: 1px;
+  }
+  .opt.selected .letter { background: var(--accent); color: white; }
+  .opt.correct .letter  { background: var(--good);  color: white; }
+  .opt.wrong .letter    { background: var(--bad);   color: white; }
+  .opt .text { flex: 1; }
+
+  /* ---------- Feedback ---------- */
+  .feedback {
+    margin-top: 20px;
+    padding: 16px 20px;
+    border-radius: var(--radius-sm);
+    line-height: 1.65;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    background: var(--card-2);
+    color: var(--ink-2);
+    white-space: pre-wrap;
+  }
+  .feedback.good { border-color: var(--good); background: var(--good-soft); color: var(--ink); }
+  .feedback.bad  { border-color: var(--bad);  background: var(--bad-soft);  color: var(--ink); }
+  .feedback-header {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .feedback-header .icon {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    color: white;
+    font-size: 12px;
+  }
+  .feedback.good .icon { background: var(--good); }
+  .feedback.bad  .icon { background: var(--bad); }
+  .feedback-meta {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .feedback-meta code {
+    background: var(--bg-elevated);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  .rationale-warning {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--warn-soft);
+    color: var(--warn);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .rationale-warning::before {
+    content: "⚠";
+    font-size: 13px;
+  }
+
+  /* ---------- Action bar ---------- */
+  .actions {
+    margin-top: 24px;
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  button.primary {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 11px 22px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  button.primary:hover:not(:disabled) { background: var(--accent-2); }
+  button.primary:disabled { opacity: 0.45; cursor: not-allowed; }
+  button.ghost {
+    background: transparent;
+    color: var(--ink-2);
+    border: 1px solid var(--border);
+    padding: 11px 18px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 15px;
+  }
+  button.ghost:hover { background: var(--card-2); border-color: var(--border-strong); }
+  button.bookmark {
+    background: transparent;
+    color: var(--ink-2);
+    border: 1px solid var(--border);
+    padding: 11px 14px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 15px;
+  }
+  button.bookmark.on {
+    background: var(--warn-soft);
+    color: var(--warn);
+    border-color: var(--warn);
+  }
+
+  /* ---------- Bottom progress ---------- */
+  .progress-wrap {
+    position: sticky; bottom: 0;
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border);
+    padding: 12px 24px;
+  }
+  .progress-bar {
+    max-width: 760px;
+    margin: 0 auto;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transition: width 0.3s;
+  }
+  .progress-text {
+    max-width: 760px;
+    margin: 6px auto 0;
+    display: flex; justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Empty / loading ---------- */
+  .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .spinner {
+    width: 32px; height: 32px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon">🎓</div>
+      <span>ITIL 5 Foundation 刷题</span>
+    </div>
+    <div class="topbar-actions">
+      <div class="stats-chip" id="stats-chip">— / —</div>
+      <button class="stats-chip" id="wrong-toggle" title="切换错题本模式" style="cursor:pointer">
+        错题本 <span id="wrong-count">0</span>
+      </button>
+      <button class="icon-btn" id="theme-toggle" title="切换主题">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="root">
+      <div class="empty">
+        <div class="spinner"></div>
+        加载中…
+      </div>
+    </div>
+  </main>
+
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="progress-text">
+      <span id="progress-label">未开始</span>
+      <span id="progress-acc">—</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = (sel) => document.querySelector(sel);
+const root = $("#root");
+let current = null;
+let chosen = null;
+let revealed = false;
+
+// ---------- Theme ----------
+const themeBtn = $("#theme-toggle");
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  themeBtn.textContent = theme === "dark" ? "☀️" : "🌙";
+  themeBtn.title = theme === "dark" ? "切换到浅色" : "切换到深色";
+}
+function currentTheme() {
+  const stored = localStorage.getItem("itil_theme");
+  if (stored === "light" || stored === "dark") return stored;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+themeBtn.addEventListener("click", () => {
+  const next = currentTheme() === "dark" ? "light" : "dark";
+  localStorage.setItem("itil_theme", next);
+  applyTheme(next);
+});
+applyTheme(currentTheme());
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", (e) => {
+  if (!localStorage.getItem("itil_theme")) applyTheme(e.matches ? "dark" : "light");
+});
+
+// ---------- Stats ----------
+async function fetchStats() {
+  const r = await fetch("/api/stats");
+  const s = await r.json();
+  $("#stats-chip").innerHTML =
+    `<strong>${s.answered}</strong>/${s.total}<span class="sep">·</span>对 <strong>${s.correct}</strong><span class="sep">·</span>${s.answered ? Math.round(s.accuracy * 100) + "%" : "—"}`;
+  $("#wrong-count").textContent = s.wrong || 0;
+  // Highlight wrong toggle when in wrong-mode and pool is empty
+  if (mode === "wrong" && (s.wrong || 0) === 0) {
+    $("#wrong-toggle").classList.add("on");
+  } else if (mode === "wrong") {
+    $("#wrong-toggle").classList.add("on");
+  } else {
+    $("#wrong-toggle").classList.remove("on");
+  }
+  const pct = s.total ? Math.min(100, (s.answered / s.total) * 100) : 0;
+  $("#progress-fill").style.width = pct + "%";
+  $("#progress-label").textContent = s.answered ? `已答 ${s.answered} / ${s.total}` : "未开始";
+  $("#progress-acc").textContent = s.answered ? `准确率 ${Math.round(s.accuracy * 100)}%` : "—";
+  return s;
+}
+
+// ---------- Mode (default / wrong-book) ----------
+let mode = "default";  // "default" | "wrong"
+$("#wrong-toggle").addEventListener("click", async () => {
+  if (mode === "wrong") {
+    mode = "default";
+  } else {
+    mode = "wrong";
+  }
+  $("#wrong-toggle").classList.toggle("on", mode === "wrong");
+  await nextQuestion();
+});
+
+// ---------- Question flow ----------
+async function nextQuestion() {
+  chosen = null; revealed = false;
+  root.innerHTML = `<div class="empty"><div class="spinner"></div>加载中…</div>`;
+  const url = mode === "wrong" ? "/api/question?mode=wrong" : "/api/question";
+  const r = await fetch(url);
+  if (r.status === 404) {
+    if (mode === "wrong") {
+      root.innerHTML = `<div class="empty">🎉 错题本已清空!所有错题都答对了</div>`;
+    } else {
+      root.innerHTML = `<div class="empty">题库为空 — 请先把题目加进 <code>questions.json</code></div>`;
+    }
+    return;
+  }
+  current = await r.json();
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const stats = window.__stats || { total: 0, answered: 0 };
+  const counter = stats.answered + 1;
+
+  const opts = ["A", "B", "C", "D"]
+    .map(L => `<button class="opt" data-letter="${L}">
+      <span class="letter">${L}</span>
+      <span class="text">${escapeHtml(current.options[L])}</span>
+    </button>`)
+    .join("");
+
+  root.innerHTML = `
+    <div class="q-header">
+      <div class="q-counter"><strong>${counter}</strong> / ${stats.total || "?"}</div>
+      <div class="topic-pill">${escapeHtml(current.topic || "")}</div>
+    </div>
+    <div class="card">
+      <div class="stem">${escapeHtml(current.stem)}</div>
+      <div class="options">${opts}</div>
+      <div class="actions">
+        <button class="primary" id="submit" disabled>✓ 提交答案</button>
+        <button class="ghost" id="skip">跳过 →</button>
+        <button class="bookmark" id="bookmark" title="标记以便回看">⚑ 标记</button>
+      </div>
+      <div id="feedback"></div>
+    </div>
+  `;
+
+  document.querySelectorAll(".opt").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (revealed) return;
+      chosen = btn.dataset.letter;
+      document.querySelectorAll(".opt").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      $("#submit").disabled = false;
+    });
+  });
+  $("#submit").addEventListener("click", submitAnswer);
+  $("#skip").addEventListener("click", () => { chosen = null; revealed = false; nextQuestion(); });
+  $("#bookmark").addEventListener("click", () => $("#bookmark").classList.toggle("on"));
+}
+
+async function submitAnswer() {
+  if (!chosen || revealed) return;
+  revealed = true;
+  const r = await fetch("/api/answer", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ qid: current.id, answer: chosen }),
+  });
+  const data = await r.json();
+
+  document.querySelectorAll(".opt").forEach(btn => {
+    btn.disabled = true;
+    const L = btn.dataset.letter;
+    if (L === data.correct) btn.classList.add("correct");
+    if (L === chosen && !data.is_correct) btn.classList.add("wrong");
+  });
+
+  const fb = $("#feedback");
+  fb.className = "feedback " + (data.is_correct ? "good" : "bad");
+
+  // Surface a warning when the rationale is suspiciously short or
+  // missing. PeopleCert's official rationales sometimes only
+  // explain A+B and leave C+D as "obviously wrong" distractors —
+  // the user should know when the explanation is partial.
+  const rat = (data.rationale || "").trim();
+  let warnHtml = "";
+  if (!rat) {
+    warnHtml = `<div class="rationale-warning">官方解析缺失,建议查官方教材</div>`;
+  } else if (rat.length < 100) {
+    warnHtml = `<div class="rationale-warning">官方解析较短 (${rat.length} 字),可能不完整</div>`;
+  } else if (rat.length < 300) {
+    warnHtml = `<div class="rationale-warning">官方解析可能不完整 (${rat.length} 字,通常 ≥300)</div>`;
+  }
+
+  fb.innerHTML = `
+    <div class="feedback-header">
+      <span class="icon">${data.is_correct ? "✓" : "✗"}</span>
+      ${data.is_correct ? "回答正确" : "回答错误"}
+    </div>
+    <div class="feedback-meta">
+      你的选择: <code>${chosen}</code> &nbsp;·&nbsp;
+      正确答案: <code>${data.correct}</code>
+    </div>
+    ${warnHtml}
+    <div>${escapeHtml(rat || "(无解析)")}</div>
+  `;
+
+  // Replace "skip" with "next"
+  const submit = $("#submit");
+  submit.textContent = "下一题 →";
+  submit.disabled = false;
+  submit.onclick = nextQuestion;
+  $("#skip").style.display = "none";
+
+  window.__stats = await fetchStats();
+}
+
+function escapeHtml(s) {
+  return (s ?? "").toString()
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+(async () => {
+  window.__stats = await fetchStats();
+  await nextQuestion();
+})();
+</script>
+</body>
+</html>
