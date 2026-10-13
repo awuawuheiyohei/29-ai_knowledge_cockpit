@@ -31,6 +31,12 @@ data/reextracted/
 exam/exam.sqlite
 exam/exam.sqlite-*
 
+# Vault decryption scratch dir (plaintext never committed)
+.vault-plaintext/
+
+# Age private key must never enter the repo
+*.agekey
+
 # ITILv5 webapp: runtime state (rebuilt from questions.json by init_db)
 ITILv5/exam.sqlite
 ITILv5/exam.sqlite-*
